@@ -8,6 +8,6 @@ namespace PhoneBook.Report.API.Models.Domain.Entities
         public string Status { get; set; }
         public DateTime RequestDate { get; set; }
 
-        public virtual ICollection<ReportDetail> ReportDetail { get; }
+        public virtual ReportDetail ReportDetail { get; }
     }
 }
