@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhoneBook.Report.API", "Pho
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhoneBook.ApiGateway", "PhoneBook.ApiGateway\PhoneBook.ApiGateway.csproj", "{7F84B3AA-9D7F-4C7A-A754-17FDDBC2D56F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBook.Common", "PhoneBook.Common\PhoneBook.Common.csproj", "{C8F6059B-6BA2-4D5B-878E-0D6040B2C48B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{7F84B3AA-9D7F-4C7A-A754-17FDDBC2D56F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F84B3AA-9D7F-4C7A-A754-17FDDBC2D56F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F84B3AA-9D7F-4C7A-A754-17FDDBC2D56F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8F6059B-6BA2-4D5B-878E-0D6040B2C48B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8F6059B-6BA2-4D5B-878E-0D6040B2C48B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8F6059B-6BA2-4D5B-878E-0D6040B2C48B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8F6059B-6BA2-4D5B-878E-0D6040B2C48B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
