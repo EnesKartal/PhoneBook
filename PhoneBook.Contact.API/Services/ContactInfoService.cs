@@ -26,7 +26,7 @@ namespace PhoneBook.Contact.API.Services
 
             AddContactInfoResponseDTO response = new AddContactInfoResponseDTO
             {
-                Id = entity.ContactId,
+                Id = entity.Id,
                 Content = entity.Content,
                 ContactId = entity.ContactId,
                 Type = entity.Type
