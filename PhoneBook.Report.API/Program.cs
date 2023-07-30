@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using PhoneBook.Common.Interfaces;
 using PhoneBook.Report.API.Models.Domain;
+using PhoneBook.Report.API.RabbitMQ;
 using PhoneBook.Report.API.Repositories;
 using PhoneBook.Report.API.Services;
 
@@ -15,6 +17,8 @@ builder.Services.AddScoped<IReportDetailRepository, ReportDetailRepository>();
 
 builder.Services.AddScoped<IReportService, ReportService>();
 builder.Services.AddScoped<IReportDetailService, ReportDetailService>();
+
+builder.Services.AddScoped<IRabbitMQProducer, ReportRabbitMQProducer>();
 
 builder.Services.AddDbContext<PhoneBookReportDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("PhoneBookReportConnectionString")));
