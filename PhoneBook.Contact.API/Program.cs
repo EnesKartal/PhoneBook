@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PhoneBook.Contact.API.Models.Domain;
+using PhoneBook.Contact.API.RabbitMQ;
 using PhoneBook.Contact.API.Repositories;
 using PhoneBook.Contact.API.Services;
 
@@ -15,6 +16,8 @@ builder.Services.AddScoped<IContactInfoRepository, ContactInfoRepository>();
 
 builder.Services.AddScoped<IContactService, ContactService>();
 builder.Services.AddScoped<IContactInfoService, ContactInfoService>();
+
+builder.Services.AddHostedService<PhoneBookRabbitMQConsumer>();
 
 builder.Services.AddDbContext<PhoneBookContactDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("PhoneBookContactConnectionString")));
