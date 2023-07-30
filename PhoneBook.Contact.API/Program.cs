@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using PhoneBook.Contact.API.Models.Domain;
 using PhoneBook.Contact.API.Repositories;
+using PhoneBook.Contact.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,9 @@ builder.Services.AddControllers();
 
 builder.Services.AddScoped<IContactRepository, ContactRepository>();
 builder.Services.AddScoped<IContactInfoRepository, ContactInfoRepository>();
+
+builder.Services.AddScoped<IContactService, ContactService>();
+builder.Services.AddScoped<IContactInfoService, ContactInfoService>();
 
 builder.Services.AddDbContext<PhoneBookContactDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("PhoneBookContactConnectionString")));

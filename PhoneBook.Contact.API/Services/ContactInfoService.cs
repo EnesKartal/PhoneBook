@@ -12,7 +12,7 @@ namespace PhoneBook.Contact.API.Services
             this.contactInfoRepository = contactInfoRepository;
         }
 
-        public async Task<AddContactInfoResponseDTO> Add(AddContactInfoRequestDTO contactInfo)
+        public async Task<AddContactInfoResponseDTO> AddAsync(AddContactInfoRequestDTO contactInfo)
         {
             ContactInfo record = new ContactInfo
             {
@@ -35,7 +35,7 @@ namespace PhoneBook.Contact.API.Services
             return response;
         }
 
-        public async Task Remove(Guid id)
+        public async Task RemoveAsync(Guid id)
         {
             await contactInfoRepository.RemoveAsync(id);
         }
