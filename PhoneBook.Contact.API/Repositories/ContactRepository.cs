@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PhoneBook.Common.Constants;
+using PhoneBook.Common.Models.Extra.RabbitMQ;
 using PhoneBook.Contact.API.Models.Domain;
 
 namespace PhoneBook.Contact.API.Repositories
@@ -43,6 +45,23 @@ namespace PhoneBook.Contact.API.Repositories
             dbContext.Contact.Attach(record);
             dbContext.Contact.Remove(record);
             await dbContext.SaveChangesAsync();
+        }
+        public async Task<ReportResponseModel> GetReport(ReportRequestModel request)
+        {
+            Guid[] contactsInLocation = await dbContext.Contact.Where(
+                p => p.ContactInfos.Any(
+                    c => c.Type == ContactInfoTypeConstants.LOCATION && c.Content == request.Location))
+                .Select(p => p.Id).ToArrayAsync();
+
+            int phoneNumberCount = await dbContext.ContactInfo.Where(p => contactsInLocation.Contains(p.ContactId)).CountAsync();
+
+            ReportResponseModel reportResponseModel = new ReportResponseModel();
+            reportResponseModel.Id = request.Id;
+            reportResponseModel.PeopleCount = contactsInLocation.Length;
+            reportResponseModel.PhoneNumberCount = phoneNumberCount;
+            reportResponseModel.Location = request.Location;
+
+            return reportResponseModel;
         }
     }
 }

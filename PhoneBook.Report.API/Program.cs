@@ -12,6 +12,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddDbContext<PhoneBookReportDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("PhoneBookReportConnectionString")));
+
 builder.Services.AddScoped<IReportRepository, ReportRepository>();
 builder.Services.AddScoped<IReportDetailRepository, ReportDetailRepository>();
 
@@ -20,8 +23,8 @@ builder.Services.AddScoped<IReportDetailService, ReportDetailService>();
 
 builder.Services.AddScoped<IRabbitMQProducer, ReportRabbitMQProducer>();
 
-builder.Services.AddDbContext<PhoneBookReportDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("PhoneBookReportConnectionString")));
+builder.Services.AddHostedService<ReportRabbitMQConsumer>();
+
 
 var app = builder.Build();
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);

@@ -1,23 +1,23 @@
-﻿using Newtonsoft.Json;
-using PhoneBook.Common.Constants;
+﻿using PhoneBook.Common.Constants;
 using PhoneBook.Common.Models.Extra.RabbitMQ;
-using PhoneBook.Contact.API.Services;
-using RabbitMQ.Client;
+using PhoneBook.Report.API.Services;
 using RabbitMQ.Client.Events;
+using RabbitMQ.Client;
 using System.Text;
+using Newtonsoft.Json;
 
-namespace PhoneBook.Contact.API.RabbitMQ
+namespace PhoneBook.Report.API.RabbitMQ
 {
-    public class PhoneBookRabbitMQConsumer : BackgroundService
+    public class ReportRabbitMQConsumer : BackgroundService
     {
         private readonly IConnection _connection;
         private readonly IModel _channel;
-        private readonly IContactService contactService;
+        private readonly IReportService reportService;
 
-        public PhoneBookRabbitMQConsumer(IServiceScopeFactory scopeFactory)
+        public ReportRabbitMQConsumer(IServiceScopeFactory scopeFactory)
         {
             var scope = scopeFactory.CreateScope();
-            contactService = scope.ServiceProvider.GetRequiredService<IContactService>();
+            this.reportService = scope.ServiceProvider.GetRequiredService<IReportService>();
 
             var config = scope.ServiceProvider.GetRequiredService<IConfiguration>();
             var rabbitMQConfig = config.GetSection("RabbitMQ").Get<RabbitMQConfig>();
@@ -33,7 +33,7 @@ namespace PhoneBook.Contact.API.RabbitMQ
             _connection = factory.CreateConnection();
             _channel = _connection.CreateModel();
 
-            _channel.QueueDeclare(queue: RabbitMQConstants.PREPARE_REPORT_QUEUE,
+            _channel.QueueDeclare(queue: RabbitMQConstants.REPORT_QUEUE,
                                   durable: false,
                                   exclusive: false,
                                   autoDelete: false,
@@ -48,13 +48,11 @@ namespace PhoneBook.Contact.API.RabbitMQ
                 var body = ea.Body.ToArray();
                 var message = Encoding.UTF8.GetString(body);
 
-                ReportRequestModel? response = JsonConvert.DeserializeObject<ReportRequestModel>(message);
-                await contactService.PrepareReport(response);
-
-                Console.WriteLine("Received Message: " + message);
+                ReportResponseModel? response = JsonConvert.DeserializeObject<ReportResponseModel>(message);
+                await reportService.ReportCompleteActionAsync(response);
             };
 
-            _channel.BasicConsume(queue: RabbitMQConstants.PREPARE_REPORT_QUEUE,
+            _channel.BasicConsume(queue: RabbitMQConstants.REPORT_QUEUE,
                                   autoAck: true,
                                   consumer: consumer);
 

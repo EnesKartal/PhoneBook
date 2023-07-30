@@ -1,4 +1,5 @@
-﻿using PhoneBook.Report.API.Models.DTO.Report.GetReport;
+﻿using PhoneBook.Common.Models.Extra.RabbitMQ;
+using PhoneBook.Report.API.Models.DTO.Report.GetReport;
 
 namespace PhoneBook.Report.API.Services
 {
@@ -8,5 +9,6 @@ namespace PhoneBook.Report.API.Services
         Task<IEnumerable<GetReportResponseDTO>> GetAllAsync();
         Task RequestReportAsync(string location); //TODO: Burası parametrik mi olacak onu bir öğren.
         Task UpdateReportStatusAsync(Guid id);
+        Task ReportCompleteActionAsync(ReportResponseModel response);
     }
 }

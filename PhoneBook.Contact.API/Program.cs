@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using PhoneBook.Common.Interfaces;
 using PhoneBook.Contact.API.Models.Domain;
 using PhoneBook.Contact.API.RabbitMQ;
 using PhoneBook.Contact.API.Repositories;
@@ -11,16 +12,19 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddDbContext<PhoneBookContactDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("PhoneBookContactConnectionString")));
+
 builder.Services.AddScoped<IContactRepository, ContactRepository>();
 builder.Services.AddScoped<IContactInfoRepository, ContactInfoRepository>();
 
 builder.Services.AddScoped<IContactService, ContactService>();
 builder.Services.AddScoped<IContactInfoService, ContactInfoService>();
 
+builder.Services.AddScoped<IRabbitMQProducer, PhoneBookRabbitMQProducer>();
+
 builder.Services.AddHostedService<PhoneBookRabbitMQConsumer>();
 
-builder.Services.AddDbContext<PhoneBookContactDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("PhoneBookContactConnectionString")));
 
 var app = builder.Build();
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
