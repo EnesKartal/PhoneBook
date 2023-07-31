@@ -17,7 +17,7 @@ namespace PhoneBook.Contact.API.Controllers
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            var result = await _contactService.GetAll();
+            var result = await _contactService.GetAllAsync();
             return Ok(result);
         }
 
@@ -28,14 +28,14 @@ namespace PhoneBook.Contact.API.Controllers
             if (!Guid.TryParse(id, out record_id))
                 return BadRequest("Invalid id");
 
-            var result = await _contactService.Get(record_id);
+            var result = await _contactService.GetAsync(record_id);
             return Ok(result);
         }
 
         [HttpPost("Add")]
         public async Task<IActionResult> Add(AddContactRequestDTO request)
         {
-            var result = await _contactService.Add(request);
+            var result = await _contactService.AddAsync(request);
             return Ok(result);
         }
 
@@ -46,7 +46,7 @@ namespace PhoneBook.Contact.API.Controllers
             if (!Guid.TryParse(id, out record_id))
                 return BadRequest("Invalid id");
 
-            await _contactService.Remove(record_id);
+            await _contactService.RemoveAsync(record_id);
             return Ok();
         }
     }

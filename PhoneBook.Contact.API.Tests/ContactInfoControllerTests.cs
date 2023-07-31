@@ -2,7 +2,6 @@
 using Moq;
 using PhoneBook.Common.Constants;
 using PhoneBook.Contact.API.Controllers;
-using PhoneBook.Contact.API.Models.DTO.Contact.GetContact;
 using PhoneBook.Contact.API.Models.DTO.ContactInfo.AddContactInfoRequestDTO;
 using PhoneBook.Contact.API.Services;
 
@@ -40,7 +39,6 @@ namespace PhoneBook.Contact.API.Tests
             // Arrange
             var mockContactInfoService = new Mock<IContactInfoService>();
             var controller = new ContactInfoController(mockContactInfoService.Object);
-            // Geçersiz veri oluşturuyoruz, burada ContactId'yi boş bırakıyoruz.
             var request = new AddContactInfoRequestDTO { Type = ContactInfoTypeConstants.EMAIL, Content = "eneskartal117@gmail.com" };
 
             // Act
