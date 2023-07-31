@@ -17,6 +17,9 @@ namespace PhoneBook.Contact.API.Controllers
         [HttpPost("Add")]
         public async Task<IActionResult> Add(AddContactInfoRequestDTO request)
         {
+            if (request.ContactId == Guid.Empty || !request.ContactId.HasValue)
+                return BadRequest();
+
             var result = await contactInfoService.AddAsync(request);
             return Ok(result);
         }

@@ -10,5 +10,6 @@ namespace PhoneBook.Contact.API.Services
         Task<IEnumerable<GetContactResponseDTO>> GetAllAsync();
         Task<AddContactResponseDTO> AddAsync(AddContactRequestDTO contact);
         Task RemoveAsync(Guid id);
+        Task PrepareReportAsync(ReportRequestModel request);
     }
 }

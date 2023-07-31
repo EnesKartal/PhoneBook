@@ -86,16 +86,16 @@ namespace PhoneBook.Contact.API.Services
             await contactRepository.RemoveAsync(id);
         }
 
-        public Task<ReportResponseModel> GetReport(ReportRequestModel request)
+        public Task<ReportResponseModel> GetReportAsync(ReportRequestModel request)
         {
             return contactRepository.GetReport(request);
         }
 
-        public async Task PrepareReport(ReportRequestModel request)
+        public async Task PrepareReportAsync(ReportRequestModel request)
         {
             //10 seconds delay for better experience
             Thread.Sleep(10000);
-            ReportResponseModel response = await GetReport(request);
+            ReportResponseModel response = await GetReportAsync(request);
             rabbitMQProducer.SendMessage(response);
         }
     }

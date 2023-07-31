@@ -17,7 +17,7 @@ namespace PhoneBook.Contact.API.Services
             ContactInfo record = new ContactInfo
             {
                 Id = Guid.NewGuid(),
-                ContactId = contactInfo.ContactId,
+                ContactId = contactInfo.ContactId.Value,
                 Content = contactInfo.Content,
                 Type = contactInfo.Type
             };

@@ -49,7 +49,7 @@ namespace PhoneBook.Contact.API.RabbitMQ
                 var message = Encoding.UTF8.GetString(body);
 
                 ReportRequestModel? response = JsonConvert.DeserializeObject<ReportRequestModel>(message);
-                await contactService.PrepareReport(response);
+                await contactService.PrepareReportAsync(response);
 
                 Console.WriteLine("Received Message: " + message);
             };
