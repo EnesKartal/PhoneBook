@@ -6,10 +6,10 @@ namespace PhoneBook.Contact.API.Services
 {
     public interface IContactService
     {
-        Task<GetContactResponseDTO> Get(Guid id);
-        Task<IEnumerable<GetContactResponseDTO>> GetAll();
-        Task<AddContactResponseDTO> Add(AddContactRequestDTO contact);
-        Task Remove(Guid id);
-        Task PrepareReport(ReportRequestModel request);
+        Task<GetContactResponseDTO> GetAsync(Guid id);
+        Task<IEnumerable<GetContactResponseDTO>> GetAllAsync();
+        Task<AddContactResponseDTO> AddAsync(AddContactRequestDTO contact);
+        Task RemoveAsync(Guid id);
+        Task PrepareReportAsync(ReportRequestModel request);
     }
 }
