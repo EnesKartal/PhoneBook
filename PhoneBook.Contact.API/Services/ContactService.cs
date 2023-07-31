@@ -18,7 +18,7 @@ namespace PhoneBook.Contact.API.Services
             this.rabbitMQProducer = rabbitMQProducer;
         }
 
-        public async Task<GetContactResponseDTO> Get(Guid id)
+        public async Task<GetContactResponseDTO> GetAsync(Guid id)
         {
             Models.Domain.Entities.Contact record = await contactRepository.GetAsync(id);
 
@@ -43,7 +43,7 @@ namespace PhoneBook.Contact.API.Services
             return response;
         }
 
-        public async Task<IEnumerable<GetContactResponseDTO>> GetAll()
+        public async Task<IEnumerable<GetContactResponseDTO>> GetAllAsync()
         {
             IEnumerable<Models.Domain.Entities.Contact> contacts = await contactRepository.GetAllAsync();
 
@@ -58,7 +58,7 @@ namespace PhoneBook.Contact.API.Services
             return records;
         }
 
-        public async Task<AddContactResponseDTO> Add(AddContactRequestDTO contact)
+        public async Task<AddContactResponseDTO> AddAsync(AddContactRequestDTO contact)
         {
             Models.Domain.Entities.Contact record = new Models.Domain.Entities.Contact
             {
@@ -81,7 +81,7 @@ namespace PhoneBook.Contact.API.Services
             return response;
         }
 
-        public async Task Remove(Guid id)
+        public async Task RemoveAsync(Guid id)
         {
             await contactRepository.RemoveAsync(id);
         }
