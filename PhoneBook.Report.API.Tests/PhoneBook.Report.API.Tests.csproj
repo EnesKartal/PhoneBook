@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PhoneBook.Contact.API\PhoneBook.Contact.API.csproj" />
+    <ProjectReference Include="..\PhoneBook.Report.API\PhoneBook.Report.API.csproj" />
   </ItemGroup>
 
 </Project>
