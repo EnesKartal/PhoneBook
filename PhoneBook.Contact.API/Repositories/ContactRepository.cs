@@ -37,13 +37,9 @@ namespace PhoneBook.Contact.API.Repositories
         }
         public async Task RemoveAsync(Guid id)
         {
-            Models.Domain.Entities.Contact record = new Models.Domain.Entities.Contact
-            {
-                Id = id,
-            };
-
-            dbContext.Contact.Attach(record);
-            dbContext.Contact.Remove(record);
+            var deleteEntity = await dbContext.Contact.FindAsync(id);
+            
+            dbContext.Contact.Remove(deleteEntity);
             await dbContext.SaveChangesAsync();
         }
         public async Task<ReportResponseModel> GetReport(ReportRequestModel request)

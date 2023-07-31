@@ -14,6 +14,11 @@ namespace PhoneBook.Contact.API.Repositories
 
         public async Task<ContactInfo> AddAsync(ContactInfo contactInfo)
         {
+            if (string.IsNullOrEmpty(contactInfo.Content) || string.IsNullOrEmpty(contactInfo.Type))
+            {
+                throw new ArgumentException("Content and Type properties are required for ContactInfo.");
+            }
+
             await dbContext.ContactInfo.AddAsync(contactInfo);
             await dbContext.SaveChangesAsync();
             return contactInfo;
@@ -21,12 +26,10 @@ namespace PhoneBook.Contact.API.Repositories
 
         public async Task RemoveAsync(Guid id)
         {
-            ContactInfo record = new ContactInfo
-            {
-                Id = id,
-            };
+            ContactInfo record = await dbContext.ContactInfo.FindAsync(id);
+            if (record == null)
+                throw new ArgumentNullException();
 
-            dbContext.ContactInfo.Attach(record);
             dbContext.ContactInfo.Remove(record);
             await dbContext.SaveChangesAsync();
         }
