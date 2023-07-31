@@ -22,7 +22,9 @@ namespace PhoneBook.Report.API.Repositories
 
         public async Task<ReportDetail> GetByReportIdAsync(Guid reportId)
         {
-            ReportDetail? record = await dbContext.ReportDetail.FirstOrDefaultAsync(p => p.ReportId == reportId);
+            ReportDetail? record = await dbContext.ReportDetail
+                .Include(t => t.Report)
+                .FirstOrDefaultAsync(p => p.ReportId == reportId);
 
             if (record == null)
                 throw new NullReferenceException(nameof(record));

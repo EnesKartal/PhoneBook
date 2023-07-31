@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PhoneBook.Common.Constants;
 using PhoneBook.Report.API.Models.Domain;
 
 namespace PhoneBook.Report.API.Repositories
@@ -23,8 +24,7 @@ namespace PhoneBook.Report.API.Repositories
             if (entity == null)
                 throw new ArgumentNullException();
 
-            //TODO: change it to const
-            entity.Status = "Completed";
+            entity.Status = ReportConstants.COMPLETED;
 
             await dbContext.SaveChangesAsync();
         }

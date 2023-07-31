@@ -1,4 +1,6 @@
-﻿using PhoneBook.Contact.API.Models.DTO.Contact.AddContact;
+﻿using PhoneBook.Common.Interfaces;
+using PhoneBook.Common.Models.Extra.RabbitMQ;
+using PhoneBook.Contact.API.Models.DTO.Contact.AddContact;
 using PhoneBook.Contact.API.Models.DTO.Contact.GetContact;
 using PhoneBook.Contact.API.Models.DTO.ContactInfo.GetContactInfo;
 using PhoneBook.Contact.API.Repositories;
@@ -8,9 +10,12 @@ namespace PhoneBook.Contact.API.Services
     public class ContactService : IContactService
     {
         private readonly IContactRepository contactRepository;
-        public ContactService(IContactRepository contactRepository)
+        private readonly IRabbitMQProducer rabbitMQProducer;
+
+        public ContactService(IContactRepository contactRepository, IRabbitMQProducer rabbitMQProducer)
         {
             this.contactRepository = contactRepository;
+            this.rabbitMQProducer = rabbitMQProducer;
         }
 
         public async Task<GetContactResponseDTO> GetAsync(Guid id)
@@ -79,6 +84,19 @@ namespace PhoneBook.Contact.API.Services
         public async Task RemoveAsync(Guid id)
         {
             await contactRepository.RemoveAsync(id);
+        }
+
+        public Task<ReportResponseModel> GetReport(ReportRequestModel request)
+        {
+            return contactRepository.GetReport(request);
+        }
+
+        public async Task PrepareReport(ReportRequestModel request)
+        {
+            //10 seconds delay for better experience
+            Thread.Sleep(10000);
+            ReportResponseModel response = await GetReport(request);
+            rabbitMQProducer.SendMessage(response);
         }
     }
 }

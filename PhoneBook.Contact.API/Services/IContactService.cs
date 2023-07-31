@@ -1,4 +1,5 @@
-﻿using PhoneBook.Contact.API.Models.DTO.Contact.AddContact;
+﻿using PhoneBook.Common.Models.Extra.RabbitMQ;
+using PhoneBook.Contact.API.Models.DTO.Contact.AddContact;
 using PhoneBook.Contact.API.Models.DTO.Contact.GetContact;
 
 namespace PhoneBook.Contact.API.Services
