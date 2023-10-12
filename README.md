@@ -1,45 +1,46 @@
-# Rehber Projesi
+# PhoneBook Project
 
-Bu proje, .NET 6 ile mikroservis mimarisi kullanılarak oluşturulmuş bir rehber uygulamasıdır. Proje, PhoneBook.ApiGateway, PhoneBook.Common, PhoneBook.Contact.API ve PhoneBook.Report.API olmak üzere dört ayrı proje içerir.
+This project is a contact directory application built using microservices architecture with .NET 6. The project consists of four separate components: PhoneBook.ApiGateway, PhoneBook.Common, PhoneBook.Contact.API, and PhoneBook.Report.API.
 
-## Proje Yapısı
+## Project Architecture
 
-- PhoneBook.ApiGateway: API Gateway projesidir. Tüm mikroservislerin tek bir noktadan yönetilmesini sağlar. RabbitMQ ile Contact API ve Report API arasında iletişim kurar.
-- PhoneBook.Common: Ortak kodları içeren bir kütüphanedir. Diğer projelerdeki tekrar eden kodları buraya çıkartmak için kullanılır.
-- PhoneBook.Common.Tests: Ortak kodların testlerini içeren bir test projesidir.
-- PhoneBook.Contact.API: Rehberin kişi bilgilerini yöneten API'dir. RabbitMQ üzerinden Report API ile iletişim kurar.
-- PhoneBook.Contact.API.Tests: Contact API'nin testlerini içeren bir test projesidir.
-- PhoneBook.Report.API: Raporlama ile ilgili işlemleri yöneten API'dir. RabbitMQ üzerinden Contact API ile iletişim kurar.
-- PhoneBook.Report.API.Tests: Report API'nin testlerini içeren bir test projesidir.
+- PhoneBook.ApiGateway: This is the API Gateway project, allowing centralized management of all microservices. It facilitates communication between the Contact API and Report API using RabbitMQ.
+- PhoneBook.Common: It is a library that contains common code, used to extract repetitive code from other projects.
+- PhoneBook.Common.Tests: A test project that includes tests for the common code.
+- PhoneBook.Contact.API: This API manages the contact information of the directory. It communicates with the Report API through RabbitMQ.
+- PhoneBook.Contact.API.Tests: A test project that includes tests for the Contact API.
+- PhoneBook.Report.API: This API manages operations related to reporting. It communicates with the Contact API through RabbitMQ.
+- PhoneBook.Report.API.Tests: A test project that includes tests for the Report API.
 
-## Kurulum ve Kullanım
+## Installation and Usage
 
-1. Bu proje için .NET 6 SDK yüklü olmalıdır.
+1. You should have the .NET 6 SDK installed for this project.
 
-2. dotnet restore ve dotnet build komutlarıyla nuget paketlerini yükleyin ve projeyi derleyin.
+2. Install NuGet packages and build the project using the following commands:
+   - Run "dotnet restore" and "dotnet build."
 
-3. Veritabanınlarını migrate etmek için CMD ya da PowerShell yardımıyla kodları sırasıyla çalıştırın.
-    -cd komutu ile Projelerin bulunduğu konuma gidin.
-    -Eğer dotnet-ef yüklü değil ise: dotnet tool install --global dotnet-ef
-    -Sırasıyla iki API projesine de CD komutu yardımı ile giderek aşağıdaki kodu çalıştırın
-    -dotnet ef migrations add InitialCreate
-    -dotnet ef database update
+3. To migrate the databases, run the following commands in CMD or PowerShell:
+   - Navigate to the location of the projects using the "cd" command.
+   - If dotnet-ef is not installed, run: "dotnet tool install --global dotnet-ef."
+   - Navigate to each of the two API projects using the "cd" command, and then execute the following commands sequentially:
+     - "dotnet ef migrations add InitialCreate"
+     - "dotnet ef database update"
 
-4. PhoneBook.ApiGateway projesini çalıştırın. Proje, localhost:5550 üzerinde çalışacaktır.
+4. Start the PhoneBook.ApiGateway project. The project will run on localhost:5550.
 
-5. PhoneBook.Contact.API ve PhoneBook.Report.API projelerini ayrı ayrı çalıştırın. Contact API, localhost:5551 üzerinde çalışacaktır, Report API ise localhost:5552 üzerinde çalışacaktır.
+5. Start the PhoneBook.Contact.API and PhoneBook.Report.API projects separately. The Contact API will run on localhost:5551, and the Report API will run on localhost:5552.
 
-6. Proje Swagger UI arayüzüne erişmek için aşağıdaki adresleri kullanabilirsiniz:
+6. To access the Swagger UI interface for the project, use the following addresses:
    - API Gateway: http://localhost:5000
    - Contact API: http://localhost:5550/swagger
    - Report API: http://localhost:5551/swagger
 
-7. Contact API ile Report API arasında RabbitMQ ile iletişim sağlandığını unutmayın. Bu sayede her iki API arasında veri alışverişi mümkün olacaktır.
+7. Remember that communication between the Contact API and Report API is established through RabbitMQ. This enables data exchange between both APIs.
 
 
-## İletişim
+## Communication
 
-Proje hakkında herhangi bir sorunuz veya geri bildiriminiz varsa lütfen iletişime geçmekten çekinmeyin:
+If you have any question or feedback about the project please get in touch with me.
 
 - **Enes Kartal**
-- E-posta: eneskartal117@gmail.com
+- E-mail: eneskartal117@gmail.com
